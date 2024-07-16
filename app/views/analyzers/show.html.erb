@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1>Analyzer Details</h1>
+      <% if Analyzer.any? %>
+        <%= link_to "Back to All Analysers", analyzers_path, class: "btn btn-secondary mb-3" %>
+      <% end %>
+      <div class="analysis-result card shadow-sm mb-4">
+        <div class="card-header bg-success text-white rounded-top">
+          <h5>Analysis and Recommendations</h5>
+        </div>
+        <div class="card-body rounded-bottom">
+          <div class="bg-light p-3 rounded">
+            <p><strong>Match Score: <%= @analysis.match_score %>%</strong></p>
+            <%= markdown_to_html(@analysis.content) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="matching-skills card shadow-sm mb-4">
+        <div class="card-header bg-info text-white rounded-top">
+          <h5>Matching Skills</h5>
+        </div>
+        <div class="card-body rounded-bottom">
+          <ul class="list-group">
+            <% @analysis.matching_skills.split(", ").each do |skill| %>
+              <li class="list-group-item list-group-item-success"><%= skill %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="missing-skills card shadow-sm mb-4">
+        <div class="card-header bg-danger text-white rounded-top">
+          <h5>Missing Skills</h5>
+        </div>
+        <div class="card-body rounded-bottom">
+          <ul class="list-group">
+            <% @analysis.missing_skills.split(", ").each do |skill| %>
+              <li class="list-group-item list-group-item-danger"><%= skill %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ats-tips card shadow-sm mb-4">
+        <div class="card-header bg-warning text-white rounded-top">
+          <h5>ATS Optimization Tips</h5>
+        </div>
+        <div class="card-body rounded-bottom">
+          <%= markdown_to_html(@analysis.ats_tips) %>
+        </div>
+      </div>
+
+      <%= link_to 'Delete Analyzer', analyzer_path(@analyzer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>

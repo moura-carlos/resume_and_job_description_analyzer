@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="col-12">
+      <h1>Analyzer Details</h1>
+      <% if Analyzer.any? %>
+        <%= link_to "Back to All Analysers", analyzers_path, class: "btn btn-secondary mb-3" %>
+      <% end %>
+      </div>
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title mb-0">Upload Your Resume and Job Description</h3>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: @analyzer, local: true, url: analyzers_path) do |form| %>
+            <div class="mb-3">
+              <%= form.fields_for :resume do |resume_form| %>
+                <%= resume_form.label :content, "Resume Content", class: "form-label" %>
+                <%= resume_form.text_area :content, class: "form-control", rows: 8, placeholder: "Paste your resume content here", title: "Copy and paste your full resume here for analysis" %>
+              <% end %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.fields_for :job_description do |job_description_form| %>
+                <%= job_description_form.label :content, "Job Description Content", class: "form-label" %>
+                <%= job_description_form.text_area :content, class: "form-control", rows: 8, placeholder: "Paste the job description content here", title: "Copy and paste the full job description here for analysis" %>
+              <% end %>
+            </div>
+
+            <div class="d-grid">
+              <%= form.submit "Analyze", class: "btn btn-primary btn-lg" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
